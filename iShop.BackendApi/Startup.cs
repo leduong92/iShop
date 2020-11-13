@@ -11,18 +11,17 @@ namespace iShop.BackendApi
 {
     public class Startup
     {
+        public IConfiguration _config { get; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _config = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("iShopDb")));
+            services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString("iShopDb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +38,7 @@ namespace iShop.BackendApi
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
