@@ -1,4 +1,6 @@
 using iShop.BackendApi.Data;
+using iShop.Core.Interfaces;
+using iShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,9 @@ namespace iShop.BackendApi
         {
             services.AddControllers();
             services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString("iShopDb")));
+
+            services.AddTransient<IProductRepository, ProductRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
