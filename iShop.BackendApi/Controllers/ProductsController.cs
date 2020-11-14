@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using iShop.Core.Entities;
 using iShop.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,35 +9,39 @@ namespace iShop.BackendApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _repo;
-        public ProductsController(IProductRepository repo)
+        private readonly IGenericRepository<Product> _productsRepo;
+        private readonly IGenericRepository<ProductBrand> _productBransRepo;
+        private readonly IGenericRepository<ProductType> _prodcutTypesRepo;
+        public ProductsController(IGenericRepository<Product> productsRepo, IGenericRepository<ProductBrand> productBransRepo, IGenericRepository<ProductType> prodcutTypesRepo)
         {
-            _repo = repo;
+            _productsRepo = productsRepo;
+            _productBransRepo = productBransRepo;
+            _prodcutTypesRepo = prodcutTypesRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var results = await _repo.GetProductsAsync();
+            var results = await _productsRepo.ListAllAsync();
             return Ok(results);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var result = await _repo.GetProductByIdAsync(id);
+            var result = await _productsRepo.GetByIdAsync(id);
             return Ok(result);
         }
 
         [HttpGet("brands")]
         public async Task<IActionResult> GetProductBrands()
         {
-            var results = await _repo.GetProductBransAsync();
+            var results = await _productBransRepo.ListAllAsync();
             return Ok(results);
         }
         [HttpGet("types")]
         public async Task<IActionResult> GetProductTypess()
         {
-            var results = await _repo.GetProductTypesAsync();
+            var results = await _prodcutTypesRepo.ListAllAsync();
             return Ok(results);
         }
     }

@@ -27,7 +27,8 @@ namespace iShop.BackendApi
             services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString(SystemConstants.DbConnection)));
 
             services.AddTransient<IProductRepository, ProductRepository>();
-            
+            services.AddTransient(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
