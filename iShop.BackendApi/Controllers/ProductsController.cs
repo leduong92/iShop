@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iShop.BackendApi.Data;
+using iShop.BackendApi.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace iShop.BackendApi.Controllers
 {
@@ -11,15 +14,23 @@ namespace iShop.BackendApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public string GetProducts()
+        private readonly StoreDbContext _context;
+        public ProductsController(StoreDbContext context)
         {
-            return "This will be a list of products";
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var results = await _context.Products.ToListAsync();
+            return Ok(results);
         }
         [HttpGet("{id}")]
-        public string GetProduct(int id)
+        public async Task<IActionResult> GetProduct(int id)
         {
-            return "Sigle product";
+            var result = await _context.Products.FindAsync(id);
+            return Ok(result);
         }
     }
 }
