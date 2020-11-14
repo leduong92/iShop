@@ -26,5 +26,18 @@ namespace iShop.BackendApi.Controllers
             var result = await _repo.GetProductByIdAsync(id);
             return Ok(result);
         }
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetProductBrands()
+        {
+            var results = await _repo.GetProductBransAsync();
+            return Ok(results);
+        }
+        [HttpGet("types")]
+        public async Task<IActionResult> GetProductTypess()
+        {
+            var results = await _repo.GetProductTypesAsync();
+            return Ok(results);
+        }
     }
 }
