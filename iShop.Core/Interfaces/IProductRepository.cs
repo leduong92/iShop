@@ -1,7 +1,5 @@
-﻿using iShop.BackendApi.Entities;
-using System;
+﻿using iShop.Core.Entities;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace iShop.Core.Interfaces

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using iShop.BackendApi.Data;
-using iShop.BackendApi.Entities;
+﻿using System.Threading.Tasks;
 using iShop.Core.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace iShop.BackendApi.Controllers
 {

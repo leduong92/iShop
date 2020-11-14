@@ -1,10 +1,9 @@
-﻿using iShop.BackendApi.Data;
-using iShop.BackendApi.Entities;
+﻿
+using iShop.Core.Entities;
 using iShop.Core.Interfaces;
+using iShop.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace iShop.Infrastructure.Data
