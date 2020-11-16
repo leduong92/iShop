@@ -12,6 +12,7 @@ namespace iShop.Core.Specification
         {
             AddInclude(x => x.ProductBrand);
             AddInclude(x => x.ProductType);
+            AddOrderBy(x => x.Name);
         }
 
         public ProductWithTypesAndBrandsSpecification(int id) : base(x => x.Id == id)
