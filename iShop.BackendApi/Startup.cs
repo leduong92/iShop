@@ -1,19 +1,14 @@
 using AutoMapper;
-using iShop.BackendApi.Errors;
+using iShop.BackendApi.Extensions;
 using iShop.BackendApi.Helpers;
 using iShop.BackendApi.Middleware;
-using iShop.Core.Interfaces;
-using iShop.Infrastructure.Data;
 using iShop.Infrastructure.EF;
 using iShop.Utilities.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace iShop.BackendApi
 {
@@ -28,30 +23,14 @@ namespace iShop.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+          
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
 
             services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString(SystemConstants.DbConnection)));
 
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var errors = actionContext.ModelState
-                        .Where(e => e.Value.Errors.Count > 0)
-                        .SelectMany(x => x.Value.Errors)
-                        .Select(x => x.ErrorMessage).ToArray();
-
-                    var errorResponse = new ApiValidationErrorResponse
-                    {
-                        Errors = errors
-                    };
-
-                    return new BadRequestObjectResult(errorResponse);
-                };
-            });
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +46,8 @@ namespace iShop.BackendApi
             app.UseStaticFiles();
 
             app.UseAuthorization();
+
+            app.UseSwaggerDocumention();
 
             app.UseEndpoints(endpoints =>
             {
