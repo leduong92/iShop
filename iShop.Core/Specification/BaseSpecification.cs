@@ -26,8 +26,18 @@ namespace iShop.Core.Specification
             Includes.Add(includeExpression);
         }
 
-        public Expression<Func<T, object>> OrderBy => throw new NotImplementedException();
+        public Expression<Func<T, object>> OrderBy { get; private set; }
 
-        public Expression<Func<T, object>> OrderByDescending => throw new NotImplementedException();
+        public Expression<Func<T, object>> OrderByDescending { get; private set; }
+        protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;
+        }
+
+        protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
+        {
+            OrderByDescending = orderByDescExpression;
+        }
+
     }
 }

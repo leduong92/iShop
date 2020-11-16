@@ -1,20 +1,14 @@
 using AutoMapper;
-using iShop.BackendApi.Errors;
 using iShop.BackendApi.Extensions;
 using iShop.BackendApi.Helpers;
 using iShop.BackendApi.Middleware;
-using iShop.Core.Interfaces;
-using iShop.Infrastructure.Data;
 using iShop.Infrastructure.EF;
 using iShop.Utilities.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using System.Linq;
 
 namespace iShop.BackendApi
 {
