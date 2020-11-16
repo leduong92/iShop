@@ -1,3 +1,5 @@
+using AutoMapper;
+using iShop.BackendApi.Helpers;
 using iShop.Core.Interfaces;
 using iShop.Infrastructure.Data;
 using iShop.Infrastructure.EF;
@@ -23,11 +25,13 @@ namespace iShop.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString(SystemConstants.DbConnection)));
-
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddControllers();
+
+            services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(_config.GetConnectionString(SystemConstants.DbConnection)));
+
 
         }
 
