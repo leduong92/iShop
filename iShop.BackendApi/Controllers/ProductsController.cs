@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using iShop.BackendApi.Dtos;
 using iShop.BackendApi.Errors;
+using iShop.BackendApi.Helpers;
 using iShop.Core.Entities;
 using iShop.Core.Interfaces;
 using iShop.Core.Specification;
@@ -29,15 +30,21 @@ namespace iShop.BackendApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpecParams productParams)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification();
+            var spec = new ProductWithTypesAndBrandsSpecification(productParams);
             var products = await _productsRepo.ListAsync(spec);
 
-            return Ok(
-                _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products)
-                );
+            var countSpec = new ProductWithFiltersForCountSpecificication(productParams);
+
+            var totalItems = await _productsRepo.CountAsync(countSpec);
+
+            var data = _mapper
+               .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -49,7 +56,6 @@ namespace iShop.BackendApi.Controllers
             if (product == null) return NotFound(new ApiResponse(404));
 
             return _mapper.Map<Product, ProductToReturnDto>(product);
-            //return Ok(result);
         }
 
         [HttpGet("brands")]
