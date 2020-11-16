@@ -12,10 +12,9 @@ namespace iShop.Core.Specification
 
         }
 
-        public BaseSpecification(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes)
+        public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
             Critera = criteria;
-            Includes = includes;
         }
 
         public Expression<Func<T, bool>> Critera { get; }

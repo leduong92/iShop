@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using iShop.Core.Entities;
 using iShop.Core.Interfaces;
+using iShop.Core.Specification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iShop.BackendApi.Controllers
@@ -22,13 +23,15 @@ namespace iShop.BackendApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var results = await _productsRepo.ListAllAsync();
+            var spec = new ProductWithTypesAndBrandsSpecification();
+            var results = await _productsRepo.ListAsync(spec);
             return Ok(results);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var result = await _productsRepo.GetByIdAsync(id);
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
+            var result = await _productsRepo.GetEntityWithSpec(spec);
             return Ok(result);
         }
 
