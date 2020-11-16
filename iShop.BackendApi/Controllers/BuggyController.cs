@@ -1,4 +1,5 @@
-﻿using iShop.Infrastructure.EF;
+﻿using iShop.BackendApi.Errors;
+using iShop.Infrastructure.EF;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace iShop.BackendApi.Controllers
             var thing = _context.Products.Find(42);
             if (thing == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
             return Ok();
         }
@@ -35,7 +36,7 @@ namespace iShop.BackendApi.Controllers
         [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
-            return BadRequest();
+            return BadRequest(new ApiResponse(400));
         }
         [HttpGet("badrequest/{id}")]
         public ActionResult GetNotFoundRequest(int id)
