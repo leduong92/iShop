@@ -10,9 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace iShop.BackendApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productsRepo;
         private readonly IGenericRepository<ProductBrand> _productBransRepo;
