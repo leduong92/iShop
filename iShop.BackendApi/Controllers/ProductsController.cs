@@ -44,6 +44,7 @@ namespace iShop.BackendApi.Controllers
 
             return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -55,7 +56,6 @@ namespace iShop.BackendApi.Controllers
             if (product == null) return NotFound(new ApiResponse(404));
 
             return _mapper.Map<Product, ProductToReturnDto>(product);
-            //return Ok(result);
         }
 
         [HttpGet("brands")]
