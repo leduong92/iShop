@@ -8,6 +8,7 @@ import { ShopComponent } from './shop.component';
   declarations: [ShopComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [ShopComponent] //all component se su dung duoc
 })
 export class ShopModule { }

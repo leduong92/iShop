@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './core/nav-bar/nav-bar.component';
+import { ShopModule } from './shop/shop.module';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { NavBarComponent } from './core/nav-bar/nav-bar.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ShopModule
   ],
   providers: [],
   bootstrap: [AppComponent]
