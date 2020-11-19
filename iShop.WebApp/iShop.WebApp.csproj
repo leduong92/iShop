@@ -28,6 +28,7 @@
     <None Remove="ClientApp\src\app\shared\modules\pagination.ts" />
     <None Remove="ClientApp\src\app\shared\modules\product.ts" />
     <None Remove="ClientApp\src\app\shared\modules\productTypes.ts" />
+    <None Remove="ClientApp\src\app\shared\modules\shopParams.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\modules\pagination.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\modules\product.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\modules\productTypes.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\modules\shopParams.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
