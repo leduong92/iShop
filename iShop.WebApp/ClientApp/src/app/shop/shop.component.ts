@@ -4,7 +4,6 @@ import { IProduct } from '../shared/modules/product';
 import { IBrand } from '../shared/modules/brands';
 import { IType } from '../shared/modules/productTypes';
 import { ShopParams } from '../shared/modules/shopParams';
-import { unwatchFile } from 'fs';
 
 @Component({
   selector: 'app-shop',
